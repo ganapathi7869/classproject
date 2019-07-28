@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>collegestudentinfo</title>
+</head>
+<body>
+
+<pr>college name: {{clg.name}}</pr>
+<table border="1px solid black">
+{% for stud in stds %}
+    <tr><td>{{stud.name}}</td><td>{{stud.mocktest1__total}}</td></tr>
+{% endfor %}
+</table>
+</body>
+</html>

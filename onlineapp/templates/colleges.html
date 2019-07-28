@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>College</title>
+</head>
+<body>
+    <center>
+        <table cellpadding="3px" cellspacing="3px" padding = 5px border = 2px>
+            <tr>
+                <td>Acronym</td>
+                <td>College</td>
+                <td>Actions</td>
+            </tr>
+            {% for college in colleges %}
+            <tr>
+                <td><a href="{%url 'college_details' college.acronym %}">{{college.acronym}}</a></td>
+                <td>{{college.name}}</td>
+                {% if perms.onlineapp.edit_college %}
+                <td><a href="{%url 'editCollege' college.id%}">edit</a></td>
+                {% endif %}
+                {% if perms.onlineapp.delete_college %}
+                <td><a href="{%url 'deleteCollege' college.id%}">delete</a> </td>
+                {% endif %}
+            </tr>
+
+            {% endfor %}
+        </table>
+        {% if perms.onlineapp.add_college %}
+        <a href="{%url 'addCollege' %}">Add College</a>
+        {% endif %}
+    </center>
+</body>
+</html>

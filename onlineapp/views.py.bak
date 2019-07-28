@@ -1,0 +1,36 @@
+from django.shortcuts import render
+from django.http import HttpResponse
+
+from onlineapp.models import *
+
+# Create your views here.
+def hello(request):
+    return HttpResponse('hello world!')
+
+f=open('onlineapp/helloworld.html')
+s=f.read()
+f.close()
+
+def htmlhelloworld(request):
+    return HttpResponse(s)
+
+def getmyclg(request):
+    return HttpResponse(College.objects.filter(acronym='gvp'))
+
+def getallclg(request):
+    c=College.objects.values_list('acronym','name')
+    s='<table>'
+    s+='<tr><th>Acronym</th><th>Name</th></tr>'
+    for i in c:
+        s+='<tr><td>'+i[0]+'</td><td>'+i[1]+'</td></tr>'
+    s+='</table>'
+    return HttpResponse(s)
+
+def getallclgtemplate(request):
+    cols=College.objects.all()
+    return render(request,'allclg.html',{'colleges':cols})
+
+def college_student_info(request,num):
+    cols = College.objects.all()
+    stds=Student.objects.values('name','mocktest1__total').filter(college__id=num)
+    return render(request,'collegestudentinfo.html',{'colleges':cols,'stds':stds})

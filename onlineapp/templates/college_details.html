@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+</head>
+<body>
+    <center>
+        <table border = 3px cellspacing="5px" cellpadding="5px" padding = 3px>
+            <tr>
+            <td>Name</td>
+            <td>Email</td>
+            <td>TotalMarks</td>
+                <td colspan="2">operations</td>
+        </tr>
+        {% for student in students %}
+        <tr>
+            <td>{{student.name}}</td>
+            <td>{{student.email}}</td>
+            <td>{{student.mocktest1.total}}</td>
+            {% if perms.onlineapp.edit_student %}
+            <td><a href="{%url 'editstudent' college.id student.id%}">edit</a></td>
+            {% endif %}
+            {% if perms.onlineapp.delete_student %}
+            <td><a href="{%url 'deletestudent' college.id student.id%}">delete</a></td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+        </table>
+        {% if perms.onlineapp.add_student %}
+        <a href="{%url 'addstudent' college.id%}">Add Student</a>
+        {% endif %}
+    </center>
+</body>
+</html>
